@@ -1,0 +1,5 @@
+# Requirements
+azure-common==1.1.23
+azure-mgmt-resource
+azure-mgmt-compute
+azure-mgmt-monitor
