@@ -1,6 +1,18 @@
 
 Example on using Docker to fetch metrics form Azure VM
 
+# Build and Run
+
+
+Build the image
+```bash
+docker build --pull --rm -f "dockerfile.dev" -t azurepythonexample:latest "."
+```
+
+Run the image
+```bash
+docker run --rm -it --env-file local.env  azurepythonexample:latest
+```
 
 # References
 - Azure for Python Developers https://docs.microsoft.com/en-us/azure/python/?view=azure-python

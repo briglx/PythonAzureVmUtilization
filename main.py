@@ -19,6 +19,7 @@ _LOGGER.addHandler(ch)
 
 def get_management_client(azure_auth):
     """Get Container Client."""
+    client = None
     if azure_auth is not None:
         _LOGGER.info("Authenticating Azure using credentials")
         auth_config_dict = json.loads(azure_auth)
