@@ -1,3 +1,4 @@
 local.env
 .vscode/launch.json
 .vscode/settings.json
+*.csv
