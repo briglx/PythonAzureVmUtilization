@@ -1,11 +1,12 @@
+# Python Azure VM Utilization
 
 Example on using Docker to fetch metrics from Azure VM
 
-# Dev Setup
+# Development Setup
 
 Make a copy of local.env.example and rename to local.env. Edit the file with the necessary credentials for the service principal.
 
-# Build and Run
+# Using Docker
 
 Build the image
 ```bash
@@ -14,7 +15,16 @@ docker build --pull --rm -f "dockerfile.dev" -t azurepythonexample:latest "."
 
 Run the image
 ```bash
-docker run --rm -it --env-file local.env  azurepythonexample:latest
+docker run --rm -it azurepythonexample:latest
+
+# run with an environment file
+docker run --rm -it --env-file local.env azurepythonexample:latest
+```
+
+Run the script
+
+```python
+#> python main.py
 ```
 
 # Notes
