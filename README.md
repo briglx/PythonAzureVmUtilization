@@ -1,5 +1,21 @@
 
-Example on using Docker to fetch metrics form Azure VM
+Example on using Docker to fetch metrics from Azure VM
+
+# Dev Setup
+
+Make a copy of local.env.example and rename to local.env. Edit the file with the necessary credentials for the service principal.
+
+# Build and Run
+
+Build the image
+```bash
+docker build --pull --rm -f "dockerfile.dev" -t azurepythonexample:latest "."
+```
+
+Run the image
+```bash
+docker run --rm -it --env-file local.env  azurepythonexample:latest
+```
 
 # Notes
 
@@ -12,7 +28,6 @@ Interesting Metrics for VMs
 - Disk Write Bytes
 - Network In Total. The number of bytes received on all network interfaces by the Virtual Machine(s) (Incoming Traffic)
 - Network Out Total
-
 
 Most metrics allow time grain to be any of the following
 
@@ -42,24 +57,10 @@ class AggregationType(str, Enum):
     total = "Total"
 ```
 
-# Build and Run
-
-
-Build the image
-```bash
-docker build --pull --rm -f "dockerfile.dev" -t azurepythonexample:latest "."
-```
-
-Run the image
-```bash
-docker run --rm -it --env-file local.env  azurepythonexample:latest
-```
-
-
-
 # References
 - Azure for Python Developers https://docs.microsoft.com/en-us/azure/python/?view=azure-python
 - List all subscriptions https://docs.microsoft.com/en-us/python/api/azure-mgmt-subscription/azure.mgmt.subscription.operations.subscriptionsoperations?view=azure-python#list-custom-headers-none--raw-false----operation-config-
 - Example Fetch Metrics https://stackoverflow.com/questions/54327418/get-cpu-utilization-of-virtual-machines-in-azure-using-python-sdk
 - MetricsOperation Class https://docs.microsoft.com/en-us/python/api/azure-mgmt-monitor/azure.mgmt.monitor.v2018_01_01.operations.metricsoperations?view=azure-python
 - Definitions of Metrics https://docs.microsoft.com/en-us/rest/api/monitor/metricdefinitions/list#definitions
+- Authenicate with Json https://docs.microsoft.com/en-us/azure/developer/python/azure-sdk-authenticate?tabs=bash#authenticate-with-a-json-file

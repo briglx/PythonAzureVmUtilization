@@ -14,6 +14,13 @@ import numpy as np
 _LOGGER = logging.getLogger(__name__)
 
 
+class AuthException(ValueError):
+    """Auth process failed for some reason."""
+
+    def __str__(self):
+        return "Failed to authenticate to Azure. Have you set the AZURE_AUTH environment variable?"
+
+
 def configure_logger():
     """Configure logger"""
     _LOGGER.setLevel(logging.INFO)
@@ -26,17 +33,14 @@ def configure_logger():
 
 
 def get_management_client(azure_auth, client_class):
-    """Get Container Client."""
+    """Returns SDK Client for the given client_class."""
     client = None
     if azure_auth is not None:
-        _LOGGER.info("Authenticating Azure using credentials")
+        _LOGGER.info("Getting SDK Client for %s", client_class)
         auth_config_dict = json.loads(azure_auth)
         client = get_client_from_json_dict(client_class, auth_config_dict)
     else:
-        _LOGGER.error(
-            "\nFailed to authenticate to Azure. Have you set the"
-            " AZURE_AUTH environment variable?\n"
-        )
+        raise AuthException()
     return client
 
 
@@ -177,7 +181,7 @@ def main():
 
     # Iterate each subscription
     for subscription in subscription_client.subscriptions.list():
-        _LOGGER.info(subscription.display_name, subscription.subscription_id)
+        _LOGGER.info("%s %s", subscription.display_name, subscription.subscription_id)
 
         for virtual_machine in compute_client.virtual_machines.list_all():
             _LOGGER.info("%s %s", virtual_machine.name, virtual_machine.id)
